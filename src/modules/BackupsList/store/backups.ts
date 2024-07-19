@@ -1,43 +1,48 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
 
-import type { Backup } from '../typos/types'
+import type { Backup, Project } from '../typos/types'
+import API_ENV from '@/config/api.config'
+
+const { apiBackups, apiProjects } = API_ENV
 
 export const useBackupStore = defineStore('backup', {
   state: () => ({
     backups: <Backup[]>[],
-    isAuthenticated: false,
-    token: ''
+    projects: <Project[]>[]
   }),
   actions: {
-    addBackup(backup: Backup) {
+    async addBackup(backup: Backup) {
+      try {
+        const { data } = await axios.post(apiBackups, backup)
+        return data
+      } catch (error) {}
       this.backups.push(backup)
     },
-    deleteBackup(index: number) {
-      this.backups.splice(index, 1)
+    async deleteBackup(id: string) {
+      try {
+        await axios.delete(`${apiBackups}/${id}`)
+        const findedIndex = this.backups.findIndex((item) => item.id === id)
+        this.backups.splice(findedIndex, 1)
+      } catch (error) {
+        console.error(error)
+      }
     },
-    authenticate(token: string) {
-      this.isAuthenticated = true
-      this.token = token
-    },
-    logout() {
-      this.isAuthenticated = false
-      this.token = ''
+    async fetchBackups() {
+      try {
+        const { data } = await axios.get(apiBackups)
+        this.backups = data
+      } catch (error) {
+        console.error(error)
+      }
     },
     async fetchProjects() {
-      const { data } = await axios.get('http://localhost:3001/backups')
-
-      this.backups = data
-    },
-    async login(email: string, password: string) {
-      const response = await axios.post('http://localhost:3001/login', { email, password })
-
-      if (!response) {
-        throw new Error('Ошибка авторизации')
+      try {
+        const { data } = await axios.get(apiProjects)
+        this.projects = data
+      } catch (error) {
+        console.error(error)
       }
-
-      const data = response.data
-      this.authenticate(data.accessToken)
     }
   }
 })
