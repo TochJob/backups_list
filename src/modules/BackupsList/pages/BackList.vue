@@ -76,7 +76,7 @@ onMounted(async (): Promise<void> => {
             class="px-4 flex gap-2 py-2 bg-green-500 text-white rounded"
             :disable="isCreatingBackup"
           >
-            {{ buttonText }}
+            {{ buttonText }} <span v-if="isCreatingBackup">{{ progressValue }}%</span>
           </button>
         </div>
       </div>
