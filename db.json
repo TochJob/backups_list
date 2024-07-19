@@ -1,0 +1,40 @@
+{
+  "backups": [
+    {
+      "id": "0",
+      "name": "Проект 1",
+      "date": "1999-12-01",
+      "size": 123
+    },
+    {
+      "id": "1",
+      "name": "Проект 2",
+      "date": "1999-12-01",
+      "size": 123
+    },
+    {
+      "id": "2",
+      "name": "Проект 3",
+      "date": "1999-12-01",
+      "size": 123
+    }
+  ],
+  "users": [
+    {
+      "id": "0",
+      "name": "test",
+      "password": "test"
+    },
+    {
+      "id": "1",
+      "name": "user@example.com",
+      "password": "password"
+    },
+    {
+      "id": "bd8d"
+    },
+    {
+      "id": "77e2"
+    }
+  ]
+}
