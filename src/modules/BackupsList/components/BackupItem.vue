@@ -19,16 +19,17 @@ const closeModal = (): void => {
 
 const restoreBackup = (): void => {
   isRestoreModalVisible.value = true
-  // if (confirm('Вы уверены, что хотите восстановить этот бэкап?')) {
-  //   alert('Бэкап восстановлен!')
-  // }
 }
 
 const confirmDelete = (): void => {
+  store.deleteBackup(props.backup.id)
+}
+
+const openDeleteModal = (): void => {
   isDeleteModalVisible.value = true
-  // if (confirm('Вы уверены, что хотите удалить этот бэкап?')) {
-  //   store.deleteBackup(props.backup.id)
-  // }
+}
+const openRestoreModal = (): void => {
+  isRestoreModalVisible.value = true
 }
 </script>
 <template>
@@ -39,10 +40,12 @@ const confirmDelete = (): void => {
       <p>Size: {{ backup.size }} MB</p>
     </div>
     <div class="mt-2 flex space-x-2">
-      <button @click="restoreBackup" class="px-4 py-2 bg-blue-500 text-white rounded">
+      <button @click="openRestoreModal" class="px-4 py-2 bg-blue-500 text-white rounded">
         Restore
       </button>
-      <button @click="confirmDelete" class="px-4 py-2 bg-red-500 text-white rounded">Delete</button>
+      <button @click="openDeleteModal" class="px-4 py-2 bg-red-500 text-white rounded">
+        Delete
+      </button>
     </div>
   </div>
 
