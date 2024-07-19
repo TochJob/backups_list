@@ -1,6 +1,6 @@
 # Project to implement UI and logic for backup
 
-Стэк:
+Stack:
 
 - VueJs v3 (Composition API)
 - TypeScript
@@ -16,9 +16,12 @@ npm install
 
 ### Compile and Hot-Reload for Development
 
+npm run dev -- star frontend application
+npm run serve:api -- start local db
+
 ```sh
-npm run dev -- for frontend
-npm run serve:api -- for local db
+npm run dev
+npm run serve:api
 ```
 
 ### The application uses authentication
