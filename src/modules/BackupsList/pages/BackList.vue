@@ -9,6 +9,7 @@ const selectedProject = ref<string>('')
 const isCreatingBackup = ref<boolean>(false)
 
 const createBackup = () => {
+  if (isCreatingBackup.value) return
   if (!selectedProject.value) {
     alert('Выберите проект')
     return

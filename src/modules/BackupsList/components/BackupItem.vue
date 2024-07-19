@@ -20,10 +20,12 @@ const confirmDelete = () => {
 }
 </script>
 <template>
-  <div class="p-4 bg-gray-100 rounded shadow-md mb-4">
-    <h3 class="text-lg font-bold">{{ backup.name }}</h3>
-    <p>Date: {{ backup.date }}</p>
-    <p>Size: {{ backup.size }} MB</p>
+  <div class="p-4 bg-gray-100 rounded shadow-md mb-4 flex items-start justify-between">
+    <div>
+      <h3 class="text-lg font-bold">{{ backup.name }}</h3>
+      <p>Date: {{ backup.date }}</p>
+      <p>Size: {{ backup.size }} MB</p>
+    </div>
     <div class="mt-2 flex space-x-2">
       <button @click="restoreBackup" class="px-4 py-2 bg-blue-500 text-white rounded">
         Restore

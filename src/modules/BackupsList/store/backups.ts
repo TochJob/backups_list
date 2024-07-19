@@ -15,6 +15,7 @@ export const useBackupStore = defineStore('backup', {
     async addBackup(backup: Backup) {
       try {
         const { data } = await axios.post(apiBackups, backup)
+        this.backups.push(backup)
         return data
       } catch (error) {}
       this.backups.push(backup)
