@@ -3,21 +3,24 @@ import { defineStore } from 'pinia'
 
 export const useMainStore = defineStore('main', {
   state: () => ({
-    alertText: 'Something went wrong!',
-    isAlertVisible: false
+    alertText: '',
+    isAlertVisible: false,
+    type: 'error'
   }),
   actions: {
-    showAlert(payload: string) {
+    showAlert(payload: string, type?: string) {
       let text = null
+      const defaultErrorText = 'Something went wrong!'
 
       text = payload
-
+      this.type = type || 'error'
       this.isAlertVisible = true
-      this.alertText = text || 'Что-то пошло не так!'
+      this.alertText = text || defaultErrorText
       setTimeout(() => {
+        this.type = 'error'
         this.isAlertVisible = false
-        this.alertText = 'Что-то пошло не так!'
-      }, 4000)
+        this.alertText = defaultErrorText
+      }, 5000)
     }
   }
 })
