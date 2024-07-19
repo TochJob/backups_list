@@ -12,15 +12,17 @@ export const useBackupStore = defineStore('backup', {
     projects: <Project[]>[]
   }),
   actions: {
-    async addBackup(backup: Backup) {
+    async addBackup(backup: Backup): Promise<Backup[] | undefined> {
       try {
-        const { data } = await axios.post(apiBackups, backup)
+        const { data } = await axios.post<Backup[]>(apiBackups, backup)
         this.backups.push(backup)
         return data
-      } catch (error) {}
+      } catch (error) {
+        console.error(error)
+      }
       this.backups.push(backup)
     },
-    async deleteBackup(id: string) {
+    async deleteBackup(id: string): Promise<void> {
       try {
         await axios.delete(`${apiBackups}/${id}`)
         const findedIndex = this.backups.findIndex((item) => item.id === id)
@@ -29,17 +31,17 @@ export const useBackupStore = defineStore('backup', {
         console.error(error)
       }
     },
-    async fetchBackups() {
+    async fetchBackups(): Promise<void> {
       try {
-        const { data } = await axios.get(apiBackups)
+        const { data } = await axios.get<Backup[]>(apiBackups)
         this.backups = data
       } catch (error) {
         console.error(error)
       }
     },
-    async fetchProjects() {
+    async fetchProjects(): Promise<void> {
       try {
-        const { data } = await axios.get(apiProjects)
+        const { data } = await axios.get<Project[]>(apiProjects)
         this.projects = data
       } catch (error) {
         console.error(error)

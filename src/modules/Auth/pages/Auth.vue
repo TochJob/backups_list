@@ -9,10 +9,10 @@ const mainStore = useMainStore()
 
 const router = useRouter()
 
-const username = ref<string>('')
-const password = ref<string>('')
+const username = ref('')
+const password = ref('')
 
-const login = async () => {
+const login = async (): Promise<void> => {
   if (!username.value || !password.value) {
     mainStore.showAlert('Enter username and password')
     return

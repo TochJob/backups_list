@@ -13,7 +13,7 @@ const progressValue = ref<number>(0)
 
 const buttonText = computed(() => (isCreatingBackup.value ? 'Creating...' : 'Create backup'))
 
-const createBackup = async () => {
+const createBackup = async (): Promise<void> => {
   if (isCreatingBackup.value) return
   if (!selectedProject.value) {
     mainStore.showAlert('Firstly choose project')
@@ -24,7 +24,7 @@ const createBackup = async () => {
 
   simulateBackupCreation()
 
-  setTimeout(async () => {
+  setTimeout(async (): Promise<void> => {
     await backupsStore.addBackup({
       id: String(backupsStore.backups.length + 1),
       name: selectedProject.value,
@@ -48,7 +48,7 @@ const simulateBackupCreation = () => {
     }, 500)
   })
 }
-onMounted(async () => {
+onMounted(async (): Promise<void> => {
   try {
     await Promise.all([backupsStore.fetchBackups(), backupsStore.fetchProjects()])
   } catch (error) {

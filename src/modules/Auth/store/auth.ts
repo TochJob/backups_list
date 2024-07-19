@@ -10,7 +10,7 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: false
   }),
   actions: {
-    async authenticate(obj: LoginData) {
+    async authenticate(obj: LoginData): Promise<void> {
       try {
         const { data } = await axios.get<LoginData[]>(apiAuthSign)
         this.compareUser({ obj, data })
@@ -21,11 +21,11 @@ export const useAuthStore = defineStore('auth', {
         throw new Error('Authentication failed')
       }
     },
-    logout() {
+    logout(): void {
       this.isAuthenticated = false
       localStorage.removeItem('isAuthenticated')
     },
-    compareUser(info: { obj: LoginData; data: LoginData[] }) {
+    compareUser(info: { obj: LoginData; data: LoginData[] }): void {
       const { obj, data } = info
       const foundUser = data.find(
         (item) => item.name === obj.name && item.password === obj.password
