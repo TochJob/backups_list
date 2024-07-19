@@ -29,6 +29,6 @@ npm run serve:api
 Library is used to store and work with data: json-server. File: db.json
 
 ```sh
-name: test
+username: test
 password: test
 ```
