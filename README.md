@@ -16,7 +16,7 @@ npm install
 
 ### Compile and Hot-Reload for Development
 
-npm run dev -- star frontend application
+npm run dev -- star frontend application.
 npm run serve:api -- start local db
 
 ```sh
@@ -25,6 +25,8 @@ npm run serve:api
 ```
 
 ### The application uses authentication
+
+Library is used to store and work with data: json-server. File: db.json
 
 ```sh
 name: test
