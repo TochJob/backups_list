@@ -8,6 +8,8 @@ const backupsStore = useBackupStore()
 const selectedProject = ref<string>('')
 const isCreatingBackup = ref<boolean>(false)
 
+const buttonText = computed(() => (isCreatingBackup.value ? 'Creating' : 'Create backup'))
+
 const createBackup = () => {
   if (isCreatingBackup.value) return
   if (!selectedProject.value) {
@@ -27,7 +29,7 @@ const createBackup = () => {
     selectedProject.value = ''
   }, 5000)
 }
-const buttonText = computed(() => (isCreatingBackup.value ? 'Creating' : 'Create backup'))
+
 onMounted(async () => {
   try {
     await Promise.all([backupsStore.fetchBackups(), backupsStore.fetchProjects()])
@@ -49,7 +51,7 @@ onMounted(async () => {
         </select>
         <button
           @click="createBackup"
-          class="mt-2 px-4 flex gap-2 py-2 bg-green-500 text-white rounded"
+          class="mt-2 ml-auto px-4 flex gap-2 py-2 bg-green-500 text-white rounded"
           :disable="isCreatingBackup"
         >
           {{ buttonText }} <SSpinner v-if="isCreatingBackup" />

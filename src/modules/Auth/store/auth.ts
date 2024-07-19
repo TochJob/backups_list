@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
-import type { loginData } from '../typos/types'
+import type { LoginData } from '../typos/types'
 import axios from 'axios'
 import API_ENV from '../api/api.config'
-const { apiAuth } = API_ENV
+const { apiAuthSign } = API_ENV
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -10,19 +10,29 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: false
   }),
   actions: {
-    async authenticate() {
+    async authenticate(obj: LoginData) {
       try {
-        await axios.post(apiAuth)
+        const { data } = await axios.get<LoginData[]>(apiAuthSign)
+        this.compareUser({ obj, data })
+        this.isAuthenticated = true
+        localStorage.setItem('isAuthenticated', 'true')
       } catch (error) {
-        console.error(error)
+        console.error('Authentication failed:', error)
+        throw new Error('Authentication failed')
       }
-
-      this.isAuthenticated = true
-      localStorage.setItem('isAuthenticated', 'true')
     },
     logout() {
       this.isAuthenticated = false
       localStorage.removeItem('isAuthenticated')
+    },
+    compareUser(info: { obj: LoginData; data: LoginData[] }) {
+      const { obj, data } = info
+      const foundUser = data.find(
+        (item) => item.name === obj.name && item.password === obj.password
+      )
+      if (!foundUser) {
+        throw new Error('User not found')
+      }
     }
   }
 })

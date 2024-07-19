@@ -1,23 +1,26 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
-import { useAuthStore } from '../store/auth.ts'
+import { useAuthStore } from '../store/auth'
 import { useRouter } from 'vue-router'
 
 const store = useAuthStore()
 const router = useRouter()
 
-const username = ref('')
-const password = ref('')
+const username = ref<string>('')
+const password = ref<string>('')
 
 const login = async () => {
+  if (!username.value || !password.value) {
+    alert('Введите имя пользователя и пароль')
+    return
+  }
+
   try {
-    if (username.value && password.value) {
-      await store.authenticate()
-      router.push('/')
-    } else {
-      alert('Введите имя пользователя и пароль')
-    }
-  } catch (error) {}
+    await store.authenticate({ name: username.value, password: password.value })
+    router.push('/')
+  } catch (error) {
+    console.error('Ошибка при аутентификации:', error)
+  }
 }
 </script>
 

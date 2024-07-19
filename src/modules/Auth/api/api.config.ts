@@ -1,7 +1,8 @@
 const API = import.meta.env
 
 const API_ENV = {
-  apiAuth: `${API.VITE_API_URL}users`
+  apiAuthReg: `${API.VITE_API_URL}users/register`,
+  apiAuthSign: `${API.VITE_API_URL}users`
 }
 
 export default API_ENV

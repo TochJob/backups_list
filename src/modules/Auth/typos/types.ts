@@ -1,6 +1,6 @@
-interface loginData {
-  login: string;
-  password: string;
+interface LoginData {
+  name: string
+  password: string
 }
 
-export type { loginData };
+export type { LoginData }
