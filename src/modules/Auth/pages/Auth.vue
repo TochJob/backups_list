@@ -2,8 +2,11 @@
 import { ref } from 'vue'
 import { useAuthStore } from '../store/auth'
 import { useRouter } from 'vue-router'
+import { useMainStore } from '@/store/main'
 
 const store = useAuthStore()
+const mainStore = useMainStore()
+
 const router = useRouter()
 
 const username = ref<string>('')
@@ -11,7 +14,7 @@ const password = ref<string>('')
 
 const login = async () => {
   if (!username.value || !password.value) {
-    alert('Введите имя пользователя и пароль')
+    mainStore.showAlert('Enter username and password')
     return
   }
 
@@ -19,6 +22,7 @@ const login = async () => {
     await store.authenticate({ name: username.value, password: password.value })
     router.push('/')
   } catch (error) {
+    mainStore.showAlert('Enter the correct username and password')
     console.error('Ошибка при аутентификации:', error)
   }
 }
